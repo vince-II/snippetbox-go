@@ -6,6 +6,8 @@ import (
 	"net/http"
 )
 
+// https://pkg.go.dev/net/http#pkg-constants
+
 func home(w http.ResponseWriter, r *http.Request) {
 	// check request URL if path only "/"
 	if r.URL.Path != "/" {
@@ -21,6 +23,12 @@ func snippetView(w http.ResponseWriter, r *http.Request) {
 }
 
 func snippetCreate(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "POST" {
+		w.Header().Set("Allow", http.MethodPost)
+		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
 	w.Write([]byte("Createa a new snippet..."))
 }
 
@@ -37,3 +45,5 @@ func main() {
 	err := http.ListenAndServe(":4000", mux)
 	log.Fatal(err)
 }
+
+//curl -i -X POST http://localhost:4000/snippet/create
