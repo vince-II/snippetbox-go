@@ -61,7 +61,7 @@ go run ./cmd/web
 📚 Progress Tracking
 
 - [x] Chapter 1: Setting Up a Web Application
-- [ ] Chapter 2: Templates
+- [x] Chapter 2: Templates
 - [ ] Chapter 3: Database Models
 - [ ] Chapter 4: Middleware
 - [ ] Chapter 5: Authentication
