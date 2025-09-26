@@ -1,11 +1,18 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
+	// go run ./cmd/web -addr=":9999"
+	addr := flag.String("addr", ":4000", "HTTP network address")
+	addr := os.Getenv("SNIPPETBOX_ADDR")
+	//
+	flag.Parse()
 	mux := http.NewServeMux()
 
 	// file server that serves static
@@ -22,8 +29,8 @@ func main() {
 	mux.HandleFunc("/snippet/create", snippetCreate)
 	mux.HandleFunc("/snippet/download", downloadHandler)
 
-	log.Println("Starting server on :4000")
-	err := http.ListenAndServe(":4000", mux)
+	log.Printf("Starting server on %s", *addr)
+	err := http.ListenAndServe(*addr, mux)
 	log.Fatal(err)
 
 }
