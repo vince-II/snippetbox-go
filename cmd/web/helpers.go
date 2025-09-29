@@ -20,6 +20,6 @@ func (app *application) clientError(w http.ResponseWriter, status int) {
 }
 
 // convenience wrapper around client error
-func (app *application) notFound(w http.ResponseWriter, status int) {
+func (app *application) notFound(w http.ResponseWriter) {
 	app.clientError(w, http.StatusNotFound)
 }

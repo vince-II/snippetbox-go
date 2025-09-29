@@ -7,14 +7,12 @@ import (
 	"text/template"
 )
 
-// dependency injection
 func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		http.NotFound(w, r)
 		return
 	}
 
-	// template files
 	files := []string{
 		"./ui/html/base.html",
 		"./ui/html/pages/home.html",
@@ -36,21 +34,22 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func (app *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
-		w.Header().Set("Allow", http.MethodPost)
-		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
-		return
-	}
-
-	w.Write([]byte("Create a new snippet..."))
-}
-
 func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
+	// get the id in query string
 	id, err := strconv.Atoi(r.URL.Query().Get("id"))
 	if err != nil || id < 1 {
 		app.notFound(w)
 		return
 	}
 	fmt.Fprintf(w, "Display a specific snippet with ID %d...", id)
+}
+
+func (app *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		w.Header().Set("Allow", http.MethodPost)
+		app.clientError(w, http.StatusMethodNotAllowed)
+		return
+	}
+
+	w.Write([]byte("Create a new snippet..."))
 }
