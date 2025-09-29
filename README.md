@@ -62,7 +62,7 @@ go run ./cmd/web
 
 - [x] Chapter 1: Setting Up a Web Application
 - [x] Chapter 2: Templates
-- [ ] Chapter 3: Database Models
+- [x] Chapter 3: Database Models
 - [ ] Chapter 4: Middleware
 - [ ] Chapter 5: Authentication
 - [ ] Chapter 6: Security
