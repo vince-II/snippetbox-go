@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"os"
 
-	_ "github.com/go-sql-drive/mysql"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 type application struct {
