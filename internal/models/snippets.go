@@ -79,7 +79,7 @@ func (m *SnippetModel) Latest() ([]*Snippet, error) {
 
 	stmt := `
 		SELECT 
-			id, title, content, created, expires, 
+			id, title, content, created, expires
 		FROM
 			snippets
 		WHERE
@@ -111,6 +111,9 @@ func (m *SnippetModel) Latest() ([]*Snippet, error) {
 			&s.Created,
 			&s.Expires,
 		)
+		if err != nil {
+			return nil, err
+		}
 
 		snippets = append(snippets, s)
 	}
@@ -118,5 +121,5 @@ func (m *SnippetModel) Latest() ([]*Snippet, error) {
 	if err = rows.Err(); err != nil {
 		return nil, err
 	}
-	return nil, nil
+	return snippets, nil
 }
