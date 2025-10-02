@@ -34,9 +34,13 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	data := &templateData{
+		Snippets: snippets,
+	}
+
 	// set to write the template content as the response body
 	// the last parameter, dynamic data
-	err = ts.ExecuteTemplate(w, "base", snippets)
+	err = ts.ExecuteTemplate(w, "base", data)
 	if err != nil {
 		app.serverError(w, err)
 	}
