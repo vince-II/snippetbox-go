@@ -21,9 +21,6 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 		app.serverError(w, err)
 		return
 	}
-	for _, snippet := range snippets {
-		fmt.Fprintf(w, "%+v\n", snippet)
-	}
 
 	files := []string{
 		"./ui/html/base.html",
@@ -39,7 +36,7 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 
 	// set to write the template content as the response body
 	// the last parameter, dynamic data
-	err = ts.ExecuteTemplate(w, "base", nil)
+	err = ts.ExecuteTemplate(w, "base", snippets)
 	if err != nil {
 		app.serverError(w, err)
 	}
@@ -78,7 +75,11 @@ func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = ts.ExecuteTemplate(w, "base", snippet)
+	data := &templateData{
+		Snippet: snippet,
+	}
+
+	err = ts.ExecuteTemplate(w, "base", data)
 	if err != nil {
 		app.serverError(w, err)
 	}
