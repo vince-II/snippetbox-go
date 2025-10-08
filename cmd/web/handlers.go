@@ -28,7 +28,6 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
-	// get the id in query string
 	id, err := strconv.Atoi(r.URL.Query().Get("id"))
 	if err != nil || id < 1 {
 		app.notFound(w)
@@ -38,7 +37,6 @@ func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 	snippet, err := app.snippets.Get(id)
 
 	if err != nil {
-		// returns 404 response
 		if errors.Is(err, models.ErrNoRecord) {
 			app.notFound(w)
 		} else {
