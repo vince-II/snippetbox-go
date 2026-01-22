@@ -15,6 +15,14 @@ type templateData struct {
 	Snippets    []*models.Snippet
 }
 
+func humanDate(t time.Time) string {
+	return t.Format("02 JAN 2006 AT 15:06")
+}
+
+var functions = template.FuncMap{
+	"humanDate": humanDate,
+}
+
 func newTemplateCache() (map[string]*template.Template, error) {
 	// Initialize a new map to act as the cache.
 	cache := map[string]*template.Template{}
