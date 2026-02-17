@@ -9,7 +9,7 @@ import (
 	"github.com/vince-II/go-snippetcode.git/internal/models"
 )
 
-// note: first param
+// note: first param is a dependency Injection; this is the same as "this" keyword
 func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		http.NotFound(w, r)
@@ -22,9 +22,12 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Call the newTemplateData() helper to get a templateData struct containing
+	// the 'default' data (which for now is just the current year), and add the
+	// snippets slice to it.
 	data := app.newTemplateData(r)
 	data.Snippets = snippets
-	// note: changed from create the data object. returned an variable
+	// Pass the data to the render() helper as normal.
 	app.render(w, http.StatusOK, "home.html", data)
 
 }

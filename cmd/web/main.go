@@ -43,6 +43,7 @@ func main() {
 	}
 
 	// And add it to the application dependencies.
+	// This is solve all the handlers depenceies for logging
 	app := &application{
 		errorLog:      errorLog,
 		infoLog:       infoLog,
